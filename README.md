@@ -12,7 +12,26 @@ My custom build of `dmenu`.
 * [fuzzyhighlight](https://tools.suckless.org/dmenu/patches/fuzzyhighlight/)
 * [grid](https://tools.suckless.org/dmenu/patches/grid/)
 * [gridnav](https://tools.suckless.org/dmenu/patches/gridnav/)
+* [bgra-glyphs](https://gitlab.freedesktop.org/mawww/libxft.git) patch for libXft
 * Change Font
+
+## Building
+
+Since this requires having a patched version of libXft, some initial setup is
+required. When first installing:
+
+```
+$ git clone --recurse-submodules https://github.com/dosisod/dmenu
+$ cd dmenu/libxft
+$ git checkout bgra-glyphs
+$ sh autogen.sh && ./configure && make
+$ cd ../freetype
+$ sh autogen.sh && ./configure && make
+$ cd ..
+```
+
+Tested on Ubuntu 18.04.
+
 
 Original copy of `README`:
 
