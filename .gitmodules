@@ -1,6 +1,0 @@
-[submodule "libxft"]
-	path = libxft
-	url = https://gitlab.freedesktop.org/mawww/libxft.git
-[submodule "freetype"]
-	path = freetype
-	url = https://gitlab.freedesktop.org/freetype/freetype.git
