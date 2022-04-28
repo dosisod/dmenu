@@ -5,7 +5,6 @@ My custom build of `dmenu`.
 ## Patches
 
 * [alpha](https://tools.suckless.org/dmenu/patches/alpha/)
-* [numbers](https://tools.suckless.org/dmenu/patches/numbers/)
 * [center](https://tools.suckless.org/dmenu/patches/center/)
 * [border](https://tools.suckless.org/dmenu/patches/border/)
 * [fuzzymatch](https://tools.suckless.org/dmenu/patches/fuzzymatch/)
