@@ -930,7 +930,8 @@ usage(void)
 {
 	fputs("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
 	      "             [-nb color] [-nf color] [-sb color] [-sf color]\n"
-	      "             [-nhb color] [-nhf color] [-shb color] [-shf color] [-w windowid]\n", stderr);
+	      "             [-nhb color] [-nhf color] [-shb color] [-shf color] [-w windowid]\n"
+		  "             [-it text]\n", stderr);
 	exit(1);
 }
 
@@ -989,6 +990,10 @@ main(int argc, char *argv[])
 			colors[SchemeSelHighlight][ColFg] = argv[++i];
 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
 			embed = argv[++i];
+		else if (!strcmp(argv[i], "-it")) {
+			const char * text = argv[++i];
+			insert(text, strlen(text));
+		}
 		else if (!strcmp(argv[i], "-bw"))
 			border_width = atoi(argv[++i]); /* border width */
 		else

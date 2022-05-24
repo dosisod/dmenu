@@ -5,14 +5,15 @@ My custom build of `dmenu`.
 ## Patches
 
 * [alpha](https://tools.suckless.org/dmenu/patches/alpha/)
+* [bgra-glyphs](https://gitlab.freedesktop.org/mawww/libxft.git) patch for libXft
 * [center](https://tools.suckless.org/dmenu/patches/center/)
 * [border](https://tools.suckless.org/dmenu/patches/border/)
 * [fuzzymatch](https://tools.suckless.org/dmenu/patches/fuzzymatch/)
 * [fuzzyhighlight](https://tools.suckless.org/dmenu/patches/fuzzyhighlight/)
 * [grid](https://tools.suckless.org/dmenu/patches/grid/)
 * [gridnav](https://tools.suckless.org/dmenu/patches/gridnav/)
-* [bgra-glyphs](https://gitlab.freedesktop.org/mawww/libxft.git) patch for libXft
-* Change Font
+* [initialtext](https://tools.suckless.org/dmenu/patches/initialtext/)
+* Change Fonts and other settings
 
 ## Building
 
@@ -21,9 +22,9 @@ and [freetype2](https://archlinux.org/packages/extra/x86_64/freetype2/)
 packages, then run `make && sudo make install`.
 
 For instructions for building on Ubuntu 18.04, click
-[here](https://github.com/dosisod/dmenu/tree/ubuntu1804#building).
+[here](https://github.com/dosisod/dmenu/tree/ubuntu1804#building) (no longer maintained).
 
-Original copy of `README`:
+Copy of original `README`:
 
 ```
 dmenu - dynamic menu
