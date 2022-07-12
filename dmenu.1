@@ -3,7 +3,7 @@
 dmenu \- dynamic menu
 .SH SYNOPSIS
 .B dmenu
-.RB [ \-bfiv ]
+.RB [ \-bfivP ]
 .RB [ \-g
 .IR columns ]
 .RB [ \-l
@@ -61,6 +61,9 @@ is faster, but will lock up X until stdin reaches end\-of\-file.
 .TP
 .B \-i
 dmenu matches menu items case insensitively.
+.TP
+.B \-P
+dmenu will not directly display the keyboard input, but instead replace it with asterisks. All data from stdin will be ignored.
 .TP
 .BI \-g " columns"
 dmenu lists items in a grid with the given number of columns.

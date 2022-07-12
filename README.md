@@ -13,6 +13,7 @@ My custom build of `dmenu`.
 * [grid](https://tools.suckless.org/dmenu/patches/grid/)
 * [gridnav](https://tools.suckless.org/dmenu/patches/gridnav/)
 * [initialtext](https://tools.suckless.org/dmenu/patches/initialtext/)
+* [password](https://tools.suckless.org/dmenu/patches/password/)
 * Change Fonts and other settings
 
 ## Building
