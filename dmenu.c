@@ -484,9 +484,9 @@ movewordedge(int dir)
 static void
 keypress(XKeyEvent *ev)
 {
-	char buf[32];
+	char buf[64];
 	int len;
-	KeySym ksym;
+	KeySym ksym = NoSymbol;
 	Status status;
 	int i;
 	struct item *tmpsel;
@@ -496,10 +496,10 @@ keypress(XKeyEvent *ev)
 	switch (status) {
 	default: /* XLookupNone, XBufferOverflow */
 		return;
-	case XLookupChars:
+	case XLookupChars: /* composed string from input method */
 		goto insert;
 	case XLookupKeySym:
-	case XLookupBoth:
+	case XLookupBoth: /* a KeySym and a string are returned: use keysym */
 		break;
 	}
 
@@ -716,9 +716,9 @@ insert:
 	case XK_Tab:
 		if (!sel)
 			return;
-		strncpy(text, sel->text, sizeof text - 1);
-		text[sizeof text - 1] = '\0';
-		cursor = strlen(text);
+		cursor = strnlen(sel->text, sizeof text - 1);
+		memcpy(text, sel->text, cursor);
+		text[cursor] = '\0';
 		match();
 		break;
 	}
@@ -748,8 +748,9 @@ paste(void)
 static void
 readstdin(void)
 {
-	char buf[sizeof text], *p;
-	size_t i, size = 0;
+	char *line = NULL;
+	size_t i, junk, itemsiz = 0;
+	ssize_t len;
 
 	if (passwd) {
 		inputw = lines = 0;
@@ -757,16 +758,19 @@ readstdin(void)
 	}
 
 	/* read each line from stdin and add it to the item list */
-	for (i = 0; fgets(buf, sizeof buf, stdin); i++) {
-		if (i + 1 >= size / sizeof *items)
-			if (!(items = realloc(items, (size += BUFSIZ))))
-				die("cannot realloc %zu bytes:", size);
-		if ((p = strchr(buf, '\n')))
-			*p = '\0';
-		if (!(items[i].text = strdup(buf)))
-			die("cannot strdup %zu bytes:", strlen(buf) + 1);
+	for (i = 0; (len = getline(&line, &junk, stdin)) != -1; i++) {
+		if (i + 1 >= itemsiz) {
+			itemsiz += 256;
+			if (!(items = realloc(items, itemsiz * sizeof(*items))))
+				die("cannot realloc %zu bytes:", itemsiz * sizeof(*items));
+		}
+		if (line[len - 1] == '\n')
+			line[len - 1] = '\0';
+		items[i].text = line;
 		items[i].out = 0;
+		line = NULL; /* next call of getline() allocates a new line */
 	}
+	free(line);
 	if (items)
 		items[i].text = NULL;
 	lines = MIN(lines, i);
@@ -933,11 +937,10 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: dmenu [-bfivP] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
-	      "             [-nb color] [-nf color] [-sb color] [-sf color]\n"
-	      "             [-nhb color] [-nhf color] [-shb color] [-shf color] [-w windowid]\n"
-		  "             [-it text]\n", stderr);
-	exit(1);
+	die("usage: dmenu [-bfivP] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
+		"             [-nb color] [-nf color] [-sb color] [-sf color]\n"
+		"             [-nhb color] [-nhf color] [-shb color] [-shf color] [-w windowid]\n"
+		"             [-it text]");
 }
 
 int
